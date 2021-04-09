@@ -21,7 +21,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/amdonov/lite-idp/saml"
+	"github.com/edwardzsmith/lite-idp/saml"
 )
 
 //ServiceProvider stores the Service Provider metadata required by the IdP

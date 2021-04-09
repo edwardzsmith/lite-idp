@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/amdonov/lite-idp/model"
+	"github.com/edwardzsmith/lite-idp/model"
 	"github.com/stretchr/testify/assert"
 )
 

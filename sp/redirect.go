@@ -21,7 +21,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/amdonov/lite-idp/saml"
+	"github.com/edwardzsmith/lite-idp/saml"
 	"github.com/google/uuid"
 )
 

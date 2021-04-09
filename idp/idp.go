@@ -23,11 +23,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/amdonov/lite-idp/model"
-	"github.com/amdonov/lite-idp/sign"
-	"github.com/amdonov/lite-idp/store"
-	"github.com/amdonov/lite-idp/ui"
 	"github.com/amdonov/xmlsig"
+	"github.com/edwardzsmith/lite-idp/model"
+	"github.com/edwardzsmith/lite-idp/sign"
+	"github.com/edwardzsmith/lite-idp/store"
+	"github.com/edwardzsmith/lite-idp/ui"
 	"github.com/julienschmidt/httprouter"
 	"github.com/spf13/viper"
 )

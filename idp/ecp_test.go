@@ -21,8 +21,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/amdonov/lite-idp/model"
-	"github.com/amdonov/lite-idp/saml"
+	"github.com/edwardzsmith/lite-idp/model"
+	"github.com/edwardzsmith/lite-idp/saml"
 )
 
 func Test_sendECPResponse(t *testing.T) {

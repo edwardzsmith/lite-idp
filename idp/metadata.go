@@ -20,7 +20,7 @@ import (
 	"encoding/xml"
 	"net/http"
 
-	"github.com/amdonov/lite-idp/saml"
+	"github.com/edwardzsmith/lite-idp/saml"
 	"github.com/amdonov/xmlsig"
 )
 
