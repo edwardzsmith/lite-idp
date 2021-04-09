@@ -44,11 +44,13 @@ func (i *IDP) validateRequest(request *saml.AuthnRequest, r *http.Request) error
 	if request.Issuer == "" {
 		return errors.New("request does not contain an issuer")
 	}
+
 	log.Infof("received authentication request from %s", request.Issuer)
 	sp, ok := i.sps[request.Issuer]
 	if !ok {
 		return errors.New("request from an unregistered issuer")
 	}
+
 	// Determine the right assertion consumer service
 	var acs *AssertionConsumerService
 	for i, a := range sp.AssertionConsumerServices {
@@ -79,10 +81,18 @@ func (i *IDP) validateRequest(request *saml.AuthnRequest, r *http.Request) error
 	// Have to use the raw query as pointed out in the spec.
 	// https://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf
 	// Line 621
-	return verifySignature(r.URL.RawQuery, r.Form.Get("SigAlg"), r.Form.Get("Signature"), sp)
+
+	if r.Form.Get("Signature") != "" {
+		return verifySignature(r.URL.RawQuery, r.Form.Get("SigAlg"), r.Form.Get("Signature"), sp)
+	}
+
+	return nil
 }
 
 func verifySignature(rawQuery, alg, expectedSig string, sp *ServiceProvider) error {
+
+	log.Info("Verifying signature...")
+
 	// Split up the parts
 	params := strings.Split(rawQuery, "&")
 	pMap := make(map[string]string, len(params))
@@ -100,11 +110,13 @@ func verifySignature(rawQuery, alg, expectedSig string, sp *ServiceProvider) err
 	}
 	sigparts = append(sigparts, fmt.Sprintf("SigAlg=%s", pMap["SigAlg"]))
 	sig := []byte(strings.Join(sigparts, "&"))
+
 	// Validate the signature
 	signature, err := base64.StdEncoding.DecodeString(expectedSig)
 	if err != nil {
 		return err
 	}
+
 	switch alg {
 	case "http://www.w3.org/2009/xmldsig11#dsa-sha256":
 		sum := sha256Sum(sig)
